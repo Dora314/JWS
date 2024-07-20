@@ -1,4 +1,14 @@
-# JewelrySalesSystemAtTheStore
+# DRAW
+https://lucid.app/lucidchart/f87cdcbf-f757-4ca3-a21c-534bbfd6bac9/edit?viewport_loc=-11%2C-11%2C1355%2C568%2CCozUej79f-zI&invitationId=inv_910c1995-a9e8-475f-9ed5-2cb0b2081618
+# DOC
+https://docs.google.com/document/d/144o9qvrQl1c8mzCQ2T8TiEsGQ7jaJ0Rb/edit?usp=sharing&ouid=103063786427590090016&rtpof=true&sd=true
+# GIT
+https://github.com/Dora314/JWS
+# TASK
+https://docs.google.com/spreadsheets/d/1JSIXSg-mHX05Gs9HPUQ6jElDog1BxaudNRPD7Z3dJQA/edit?usp=sharing
+
+
+# Đề bài Jewelry Sales System At The Store
 
 Phần mềm quản lý bán hàng trang sức cho công ty kinh doanh trang sức tại 01 cửa hàng có nhiều quầy hàng
  - Quản lý tạo lập đơn hàng bán tại quầy của khách và in hoá đơn bán hàng. Các mặt hàng được nhập bằng quét barcode hoặc nhập trực tiếp mã hàng vào chương trình. Chương trình hỗ trợ in phiếu bảo hành với các mặt hàng trang sức.
