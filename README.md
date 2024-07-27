@@ -1,8 +1,10 @@
-# Thành viên nhóm
+# Thành viên nhóm 9
 Hoàng Thiện Duy - 22H1120005
 Phan Lê Nhật Anh - 22H4060068
 Nguyễn Thị Thanh Ngân - 22H1120017
 Võ Khánh Phong - 2251120311
+
+Email liên hệ: 22h1120005@ut.edu.vn
 
 # DRAW
 https://lucid.app/lucidchart/f87cdcbf-f757-4ca3-a21c-534bbfd6bac9/edit?viewport_loc=-11%2C-11%2C1355%2C568%2CCozUej79f-zI&invitationId=inv_910c1995-a9e8-475f-9ed5-2cb0b2081618
