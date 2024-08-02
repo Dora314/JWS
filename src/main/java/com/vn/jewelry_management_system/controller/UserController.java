@@ -4,11 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.vn.jewelry_management_system.domain.User;
 import com.vn.jewelry_management_system.service.UserService;
@@ -71,8 +67,23 @@ public class UserController {
             currentUser.setFullName(anh.getFullName());
             currentUser.setPhone(anh.getPhone());
 
-            this.userService.handleSaveUser(anh);
+            this.userService.handleSaveUser(currentUser); // fix bug
         }
+        return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        // User user = new User();
+        // user.setId(id);
+        model.addAttribute("newUser", new User());
+        return "admin/user/delete";
+    }
+
+    @PostMapping("/admin/user/delete")
+    public String postDeleteUser(Model model, @ModelAttribute("newUser") User anh) {
+        this.userService.deleteAUser(anh.getId());
         return "redirect:/admin/user";
     }
 
