@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.vn.jewelry_management_system.domain.Inventory;
 import com.vn.jewelry_management_system.domain.InventoryId;
+import com.vn.jewelry_management_system.domain.Product;
+import com.vn.jewelry_management_system.domain.Stall;
 import com.vn.jewelry_management_system.service.InventoryService;
 import com.vn.jewelry_management_system.service.ProductService;
 import com.vn.jewelry_management_system.service.StallService;
