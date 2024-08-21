@@ -1,16 +1,36 @@
 package com.vn.jewelry_management_system.service;
-import com.vn.jewelry_management_system.entity.Product;
+
+import org.springframework.stereotype.Service;
+import com.vn.jewelry_management_system.domain.Product;
+import com.vn.jewelry_management_system.repository.ProductRepository;
 import java.util.List;
+import java.util.Optional;
 
-public interface ProductService {
+@Service
+public class ProductService {
+    private final ProductRepository productRepository;
 
-    Product getProductById(Long id);
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
-    List<Product> getAllProducts();
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
 
-    void saveProduct(Product product);
+    public Optional<Product> getProductById(int id) {
+        return productRepository.findById(id);
+    }
 
-    void updateProduct(Product product);
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
+    }
 
-    void deleteProduct(Long id);
+    public void deleteProduct(int id) {
+        productRepository.deleteById(id);
+    }
+
+    public Optional<Product> findByProductName(String productName) {
+        return productRepository.findByProductName(productName);
+    }
 }
