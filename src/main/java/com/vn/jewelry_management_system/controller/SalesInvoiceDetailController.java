@@ -3,8 +3,6 @@ package com.vn.jewelry_management_system.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.vn.jewelry_management_system.domain.Product;
-import com.vn.jewelry_management_system.domain.SalesInvoice;
 import com.vn.jewelry_management_system.domain.SalesInvoiceDetail;
 import com.vn.jewelry_management_system.domain.SalesInvoiceDetailId;
 import com.vn.jewelry_management_system.service.ProductService;

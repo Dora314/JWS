@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.vn.jewelry_management_system.domain.BuybackInvoiceDetail;
 import com.vn.jewelry_management_system.domain.BuybackInvoiceDetailId;
 
-import java.util.Optional;
-
 @Repository
 public interface BuybackInvoiceDetailRepository extends JpaRepository<BuybackInvoiceDetail, BuybackInvoiceDetailId> {
     // Không cần phương thức findBy... vì BuybackInvoiceDetailId đã là khóa chính
