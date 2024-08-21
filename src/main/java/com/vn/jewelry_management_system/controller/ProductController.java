@@ -1,77 +1,61 @@
 package com.vn.jewelry_management_system.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import com.vn.jewelry_management_system.domain.Product;
-import com.vn.jewelry_management_system.domain.ProductType;
+import com.vn.jewelry_management_system.entity.Product;
 import com.vn.jewelry_management_system.service.ProductService;
-import com.vn.jewelry_management_system.service.ProductTypeService;
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/admin/products")
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/products")
 public class ProductController {
-    private final ProductService productService;
-    private final ProductTypeService productTypeService;
 
-    public ProductController(ProductService productService, ProductTypeService productTypeService) {
+    private final ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.productTypeService = productTypeService;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Product product = productService.getProductById(id);
+        if (product != null) {
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping
-    public String showAllProducts(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
-        return "admin/product/table-product";
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
     }
 
-    @GetMapping("/create")
-    public String showCreateForm(Model model) {
-        model.addAttribute("product", new Product());
-        model.addAttribute("productTypes", productTypeService.getAllProductTypes());
-        return "admin/product/create";
-    }
-
-    @PostMapping("/create")
-    public String createProduct(@ModelAttribute("product") Product product) {
-        // Lấy productTypeId từ product object
-        int productTypeId = product.getProductType().getProductTypeId();
-
-        // Tìm ProductType object từ productTypeId
-        Optional<ProductType> productType = productTypeService.getProductTypeById(productTypeId);
-
-        // Set ProductType object cho product nếu tìm thấy
-        productType.ifPresent(product::setProductType);
-
+    @PostMapping
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
         productService.saveProduct(product);
-        return "redirect:/admin/products";
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id") int id, Model model) {
-        Optional<Product> product = productService.getProductById(id);
-        model.addAttribute("product", product.orElse(null));
-        model.addAttribute("productTypes", productTypeService.getAllProductTypes());
-        return "admin/product/edit";
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        Product existingProduct = productService.getProductById(id);
+        if (existingProduct != null) {
+            product.setProductId(id);
+            productService.saveProduct(product);
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PostMapping("/edit/{id}")
-    public String updateProduct(@PathVariable("id") int id, @ModelAttribute("product") Product product) {
-        product.setProductId(id);
-        // Tương tự như createProduct, bạn cũng cần xử lý productType trong
-        // updateProduct
-        int productTypeId = product.getProductType().getProductTypeId();
-        Optional<ProductType> productType = productTypeService.getProductTypeById(productTypeId);
-        productType.ifPresent(product::setProductType);
-
-        productService.saveProduct(product);
-        return "redirect:/admin/products";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable("id") int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return "redirect:/admin/products";
+        return ResponseEntity.noContent().build();
     }
 }
