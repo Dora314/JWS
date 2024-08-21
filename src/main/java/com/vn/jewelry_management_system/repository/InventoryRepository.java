@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.vn.jewelry_management_system.domain.Inventory;
 import com.vn.jewelry_management_system.domain.InventoryId;
 
-import java.util.Optional;
-
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, InventoryId> {
     // Không cần phương thức findByStallIdAndProductId vì InventoryId đã là khóa
