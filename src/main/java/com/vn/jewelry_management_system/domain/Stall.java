@@ -1,9 +1,13 @@
 package com.vn.jewelry_management_system.domain;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Stall {
@@ -14,14 +18,25 @@ public class Stall {
     private String stallName;
     private String location;
 
+    @OneToMany(mappedBy = "stall", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Employee> employees; // Mapped by "stall" trong Employee
+
     // Constructors, Getters and Setters
 
     public Stall() {
     }
 
+    // Constructor without employees
     public Stall(String stallName, String location) {
         this.stallName = stallName;
         this.location = location;
+    }
+
+    // Constructor with employees
+    public Stall(String stallName, String location, List<Employee> employees) {
+        this.stallName = stallName;
+        this.location = location;
+        this.employees = employees;
     }
 
     public int getStallId() {
@@ -48,8 +63,17 @@ public class Stall {
         this.location = location;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
     @Override
     public String toString() {
         return "Stall [stallId=" + stallId + ", stallName=" + stallName + ", location=" + location + "]";
     }
+
 }
