@@ -1,17 +1,21 @@
 package com.vn.jewelry_management_system.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.vn.jewelry_management_system.domain.Customer;
-import com.vn.jewelry_management_system.domain.Employee;
+
+import com.itextpdf.text.DocumentException;
 import com.vn.jewelry_management_system.domain.Product;
 import com.vn.jewelry_management_system.domain.SalesInvoice;
 import com.vn.jewelry_management_system.domain.SalesInvoiceDetail;
 import com.vn.jewelry_management_system.domain.SalesInvoiceDetailId;
-import com.vn.jewelry_management_system.domain.Stall;
 import com.vn.jewelry_management_system.service.CustomerService;
 import com.vn.jewelry_management_system.service.EmployeeService;
+import com.vn.jewelry_management_system.service.InvoicePdfService;
 import com.vn.jewelry_management_system.service.ProductService;
 import com.vn.jewelry_management_system.service.SalesInvoiceDetailService;
 import com.vn.jewelry_management_system.service.SalesInvoiceService;
@@ -30,16 +34,18 @@ public class SalesInvoiceController {
     private final StallService stallService;
     private final ProductService productService; // Inject ProductService
     private final SalesInvoiceDetailService salesInvoiceDetailService; // Inject SalesInvoiceDetailService
+    private final InvoicePdfService invoicePdfService; // Inject InvoicePdfService
 
     public SalesInvoiceController(SalesInvoiceService salesInvoiceService, CustomerService customerService,
             EmployeeService employeeService, StallService stallService, ProductService productService,
-            SalesInvoiceDetailService salesInvoiceDetailService) {
+            SalesInvoiceDetailService salesInvoiceDetailService, InvoicePdfService invoicePdfService) {
         this.salesInvoiceService = salesInvoiceService;
         this.customerService = customerService;
         this.employeeService = employeeService;
         this.stallService = stallService;
         this.productService = productService;
         this.salesInvoiceDetailService = salesInvoiceDetailService;
+        this.invoicePdfService = invoicePdfService;
 
     }
 
@@ -131,5 +137,22 @@ public class SalesInvoiceController {
         model.addAttribute("stalls", stallService.getAllStalls());
         model.addAttribute("products", productService.getAllProducts()); // Add products for selection
         return "admin/sales-invoice/edit";
+    }
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<byte[]> downloadInvoicePdf(@PathVariable("id") int id) throws DocumentException {
+        Optional<SalesInvoice> invoiceOptional = salesInvoiceService.getSalesInvoiceById(id);
+        if (invoiceOptional.isPresent()) {
+            SalesInvoice invoice = invoiceOptional.get();
+            byte[] pdfBytes = invoicePdfService.generateInvoicePdf(invoice);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("attachment", "invoice_" + invoice.getSalesInvoiceId() + ".pdf");
+
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

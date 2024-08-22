@@ -50,6 +50,8 @@
                                             onclick="return confirm('Are you sure you want to delete this sales invoice?')">Delete</a>
                                         <a href="/admin/sales-invoice-details/invoice/${invoice.salesInvoiceId}"
                                             class="btn btn-info btn-sm">Details</a> <%-- Thêm link xem chi tiết --%>
+                                            <a href="/admin/sales-invoices/download/${invoice.salesInvoiceId}"
+                                                class="btn btn-primary btn-sm">Download PDF</a>
                                     </td>
                                 </tr>
                             </c:forEach>

@@ -10,6 +10,7 @@ import java.util.List;
 public interface StallRepository extends JpaRepository<Stall, Integer> {
     Optional<Stall> findByStallName(String stallName);
 
+    @SuppressWarnings("null")
     List<Stall> findAll();
 
 }
