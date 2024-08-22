@@ -30,25 +30,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${salesInvoices}" var="salesInvoice">
+                            <c:forEach items="${salesInvoices}" var="invoice">
                                 <tr>
-                                    <td>${salesInvoice.salesInvoiceId}</td>
+                                    <td>${invoice.salesInvoiceId}</td>
                                     <td>
-                                        <fmt:formatDate value="${salesInvoice.createdDate}"
-                                            pattern="yyyy-MM-dd HH:mm:ss" />
+                                        <fmt:formatDate value="${invoice.createdDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                                     </td>
-                                    <td>${salesInvoice.customer.customerName}</td>
-                                    <td>${salesInvoice.employee.employeeName}</td>
-                                    <td>${salesInvoice.stall.stallName}</td>
-                                    <td>${salesInvoice.totalAmount}</td>
-                                    <td>${salesInvoice.discount}</td>
-                                    <td>${salesInvoice.paymentMethod}</td>
+                                    <td>${invoice.customer.customerName}</td>
+                                    <td>${invoice.employee.employeeName}</td>
+                                    <td>${invoice.stall.stallName}</td>
+                                    <td>${invoice.totalAmount}</td>
+                                    <td>${invoice.discount}</td>
+                                    <td>${invoice.paymentMethod}</td>
                                     <td>
-                                        <a href="/admin/sales-invoices/edit/${salesInvoice.salesInvoiceId}"
+                                        <a href="/admin/sales-invoices/edit/${invoice.salesInvoiceId}"
                                             class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="/admin/sales-invoices/delete/${salesInvoice.salesInvoiceId}"
+                                        <a href="/admin/sales-invoices/delete/${invoice.salesInvoiceId}"
                                             class="btn btn-danger btn-sm"
                                             onclick="return confirm('Are you sure you want to delete this sales invoice?')">Delete</a>
+                                        <a href="/admin/sales-invoice-details/invoice/${invoice.salesInvoiceId}"
+                                            class="btn btn-info btn-sm">Details</a> <%-- Thêm link xem chi tiết --%>
                                     </td>
                                 </tr>
                             </c:forEach>

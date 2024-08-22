@@ -15,6 +15,11 @@ public class GoldPriceService {
         this.goldPriceRepository = goldPriceRepository;
     }
 
+    public Optional<GoldPrice> getLatestGoldPrice() {
+        // Sắp xếp theo UpdateDate giảm dần (DESC) và lấy bản ghi đầu tiên (findFirst)
+        return goldPriceRepository.findFirstByOrderByUpdateDateDesc();
+    }
+
     public List<GoldPrice> getAllGoldPrices() {
         return goldPriceRepository.findAll();
     }

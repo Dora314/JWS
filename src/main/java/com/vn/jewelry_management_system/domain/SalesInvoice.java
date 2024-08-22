@@ -4,11 +4,16 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import java.util.List;
+
 @Entity
 public class SalesInvoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int salesInvoiceId;
+
+    @OneToMany(mappedBy = "salesInvoice", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SalesInvoiceDetail> salesInvoiceDetails; // Thêm danh sách SalesInvoiceDetail
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
@@ -43,6 +48,15 @@ public class SalesInvoice {
         this.totalAmount = totalAmount;
         this.discount = discount;
         this.paymentMethod = paymentMethod;
+    }
+
+    // Getter and Setter cho salesInvoiceDetails
+    public List<SalesInvoiceDetail> getSalesInvoiceDetails() {
+        return salesInvoiceDetails;
+    }
+
+    public void setSalesInvoiceDetails(List<SalesInvoiceDetail> salesInvoiceDetails) {
+        this.salesInvoiceDetails = salesInvoiceDetails;
     }
 
     public int getSalesInvoiceId() {
