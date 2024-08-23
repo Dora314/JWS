@@ -145,11 +145,11 @@ public class SalesInvoiceController {
         if (invoiceOptional.isPresent()) {
             SalesInvoice invoice = invoiceOptional.get();
             byte[] pdfBytes = invoicePdfService.generateInvoicePdf(invoice);
-
+    
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("attachment", "invoice_" + invoice.getSalesInvoiceId() + ".pdf");
-
+            headers.add("Content-Disposition", "attachment; filename=invoice_" + invoice.getSalesInvoiceId() + ".pdf");
+    
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
