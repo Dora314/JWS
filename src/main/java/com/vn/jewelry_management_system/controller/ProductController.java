@@ -9,6 +9,8 @@ import com.vn.jewelry_management_system.service.ProductService;
 import com.vn.jewelry_management_system.service.ProductTypeService;
 import java.util.Optional;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("/admin/products")
 public class ProductController {
@@ -44,6 +46,10 @@ public class ProductController {
         // Set ProductType object cho product nếu tìm thấy
         productType.ifPresent(product::setProductType);
 
+        // Tính toán sellingPrice
+        BigDecimal sellingPrice = productService.calculateSellingPrice(product);
+        product.setSellingPrice(sellingPrice); // Set giá trị sellingPrice cho product
+
         productService.saveProduct(product);
         return "redirect:/admin/products";
     }
@@ -65,6 +71,10 @@ public class ProductController {
         Optional<ProductType> productType = productTypeService.getProductTypeById(productTypeId);
         productType.ifPresent(product::setProductType);
 
+        // Tính toán sellingPrice
+        BigDecimal sellingPrice = productService.calculateSellingPrice(product);
+        product.setSellingPrice(sellingPrice); // Set giá trị sellingPrice cho product
+
         productService.saveProduct(product);
         return "redirect:/admin/products";
     }
@@ -73,5 +83,17 @@ public class ProductController {
     public String deleteProduct(@PathVariable("id") int id) {
         productService.deleteProduct(id);
         return "redirect:/admin/products";
+    }
+
+    @GetMapping("/price/{productId}")
+    @ResponseBody
+    public BigDecimal getProductPrice(@PathVariable("productId") int productId) {
+        Optional<Product> product = productService.getProductById(productId);
+        if (product.isPresent()) {
+            return productService.calculateSellingPrice(product.get());
+        } else {
+            // Xử lý trường hợp không tìm thấy sản phẩm
+            return BigDecimal.ZERO; // Hoặc throw exception
+        }
     }
 }

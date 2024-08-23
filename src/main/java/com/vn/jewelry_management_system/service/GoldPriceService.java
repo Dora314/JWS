@@ -3,6 +3,8 @@ package com.vn.jewelry_management_system.service;
 import org.springframework.stereotype.Service;
 import com.vn.jewelry_management_system.domain.GoldPrice;
 import com.vn.jewelry_management_system.repository.GoldPriceRepository;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +15,17 @@ public class GoldPriceService {
 
     public GoldPriceService(GoldPriceRepository goldPriceRepository) {
         this.goldPriceRepository = goldPriceRepository;
+    }
+
+    // GoldPriceService.java
+    public BigDecimal getLatestBuyingPrice() {
+        return goldPriceRepository.findLatestBuyingPrice()
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy giá mua mới nhất!"));
+    }
+
+    public BigDecimal getLatestSellingPrice() {
+        return goldPriceRepository.findLatestSellingPrice()
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy giá bán mới nhất!"));
     }
 
     public List<GoldPrice> getAllGoldPrices() {

@@ -31,4 +31,9 @@ public class SalesInvoiceDetailService {
     public void deleteSalesInvoiceDetail(SalesInvoiceDetailId id) {
         salesInvoiceDetailRepository.deleteById(id);
     }
+
+    // SalesInvoiceDetailService.java
+    public List<SalesInvoiceDetail> getDetailsBySalesInvoiceId(int salesInvoiceId) {
+        return salesInvoiceDetailRepository.findAllById_SalesInvoiceId(salesInvoiceId);
+    }
 }
