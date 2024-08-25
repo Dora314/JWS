@@ -38,8 +38,12 @@ public class CustomerController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
         Optional<Customer> customer = customerService.getCustomerById(id);
-        model.addAttribute("customer", customer.orElse(null));
-        return "admin/customer/edit"; // Chỉnh sửa đường dẫn view
+        if (customer.isPresent()) {
+            model.addAttribute("customer", customer.get());
+            return "admin/customer/edit"; // Chỉnh sửa đường dẫn view
+        } else {
+            return "redirect:/admin/customers";
+        }
     }
 
     @PostMapping("/edit/{id}")
