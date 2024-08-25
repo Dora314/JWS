@@ -9,19 +9,65 @@
                 <title>Gold Prices</title>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+                <style>
+                    body {
+                        font-family: 'Arial', sans-serif;
+                        background-color: #f4f4f4;
+                    }
+
+                    .container {
+                        margin-top: 50px;
+                    }
+
+                    h1 {
+                        text-align: center;
+                        margin-bottom: 30px;
+                        color: #333;
+                    }
+
+                    .table {
+                        background-color: #fff;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        border-radius: 8px;
+                    }
+
+                    .table th {
+                        background-color: #007bff;
+                        color: #fff;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+
+                    .table td {
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+
+                    .table-striped tbody tr:nth-of-type(odd) {
+                        background-color: rgba(0, 0, 0, 0.05);
+                    }
+
+                    .update-date {
+                        font-size: 14px;
+                        color: #666;
+                        margin-bottom: 10px;
+                    }
+                </style>
             </head>
 
             <body>
                 <div class="container mt-5">
                     <h1>Gold Prices</h1>
-                    <a href="/admin/gold-prices/create" class="btn btn-primary mb-3">Add New Gold Price</a>
+                    <a href="/admin/gold-prices/create" class="btn btn-primary mb-3">Create New Gold Price</a>
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Update Date</th>
-                                <th>Gold Price</th>
-                                <th>Actions</th>
+                                <th>Gold Name</th> <%-- Thêm cột Gold Name --%>
+                                    <th>Buying Price</th> <%-- Thêm cột Buying Price --%>
+                                        <th>Selling Price</th> <%-- Đổi tên cột Gold Price thành Selling Price --%>
+                                            <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,14 +77,16 @@
                                     <td>
                                         <fmt:formatDate value="${goldPrice.updateDate}" pattern="yyyy-MM-dd" />
                                     </td>
-                                    <td>${goldPrice.goldPrice}</td>
-                                    <td>
-                                        <a href="/admin/gold-prices/edit/${goldPrice.goldPriceId}"
-                                            class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="/admin/gold-prices/delete/${goldPrice.goldPriceId}"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure you want to delete this gold price record?')">Delete</a>
-                                    </td>
+                                    <td>${goldPrice.goldName}</td> <%-- Hiển thị goldName --%>
+                                        <td>${goldPrice.buyingPrice}</td> <%-- Hiển thị buyingPrice --%>
+                                            <td>${goldPrice.sellingPrice}</td> <%-- Hiển thị sellingPrice --%>
+                                                <td>
+                                                    <a href="/admin/gold-prices/edit/${goldPrice.goldPriceId}"
+                                                        class="btn btn-warning btn-sm">Edit</a>
+                                                    <a href="/admin/gold-prices/delete/${goldPrice.goldPriceId}"
+                                                        class="btn btn-danger btn-sm"
+                                                        onclick="return confirm('Are you sure you want to delete this gold price?')">Delete</a>
+                                                </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

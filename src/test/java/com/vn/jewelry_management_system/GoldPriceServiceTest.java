@@ -29,8 +29,8 @@ public class GoldPriceServiceTest {
 
     @Test
     public void testGetAllGoldPrices() {
-        GoldPrice price1 = new GoldPrice(new Date(), BigDecimal.valueOf(100));
-        GoldPrice price2 = new GoldPrice(new Date(), BigDecimal.valueOf(200));
+        GoldPrice price1 = new GoldPrice(new Date(), "Gold 1", BigDecimal.valueOf(100), BigDecimal.valueOf(200));
+        GoldPrice price2 = new GoldPrice(new Date(), "Gold 2", BigDecimal.valueOf(200), BigDecimal.valueOf(300));
         List<GoldPrice> prices = Arrays.asList(price1, price2);
 
         when(goldPriceRepository.findAll()).thenReturn(prices);
@@ -42,22 +42,22 @@ public class GoldPriceServiceTest {
 
     @Test
     public void testGetGoldPriceById() {
-        GoldPrice price = new GoldPrice(new Date(), BigDecimal.valueOf(100));
+        GoldPrice price = new GoldPrice(new Date(), "Gold 1", BigDecimal.valueOf(100), BigDecimal.valueOf(200));
         when(goldPriceRepository.findById(1)).thenReturn(Optional.of(price));
 
         Optional<GoldPrice> result = goldPriceService.getGoldPriceById(1);
         assertTrue(result.isPresent());
-        assertEquals(BigDecimal.valueOf(100), result.get().getGoldPrice());
+        assertEquals(BigDecimal.valueOf(100), result.get().getBuyingPrice());
         verify(goldPriceRepository, times(1)).findById(1);
     }
 
     @Test
     public void testSaveGoldPrice() {
-        GoldPrice price = new GoldPrice(new Date(), BigDecimal.valueOf(100));
+        GoldPrice price = new GoldPrice(new Date(), "Gold 1", BigDecimal.valueOf(100), BigDecimal.valueOf(200));
         when(goldPriceRepository.save(price)).thenReturn(price);
 
         GoldPrice result = goldPriceService.saveGoldPrice(price);
-        assertEquals(BigDecimal.valueOf(100), result.getGoldPrice());
+        assertEquals(BigDecimal.valueOf(100), result.getBuyingPrice());
         verify(goldPriceRepository, times(1)).save(price);
     }
 
@@ -72,12 +72,12 @@ public class GoldPriceServiceTest {
     @Test
     public void testFindByUpdateDate() {
         Date date = new Date();
-        GoldPrice price = new GoldPrice(date, BigDecimal.valueOf(100));
+        GoldPrice price = new GoldPrice(new Date(), "Gold 1", BigDecimal.valueOf(100), BigDecimal.valueOf(200));;
         when(goldPriceRepository.findByUpdateDate(date)).thenReturn(Optional.of(price));
 
         Optional<GoldPrice> result = goldPriceService.findByUpdateDate(date);
         assertTrue(result.isPresent());
-        assertEquals(BigDecimal.valueOf(100), result.get().getGoldPrice());
+        assertEquals(BigDecimal.valueOf(100), result.get().getBuyingPrice());
         verify(goldPriceRepository, times(1)).findByUpdateDate(date);
     }
 }

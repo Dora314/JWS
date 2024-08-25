@@ -29,6 +29,15 @@ public class Product {
     private String image;
     private boolean status;
 
+    private BigDecimal sellingPrice;
+
+    public BigDecimal getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(BigDecimal sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
     // Constructors, Getters and Setters
 
     public Product() {

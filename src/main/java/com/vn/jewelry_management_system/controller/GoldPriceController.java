@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import com.vn.jewelry_management_system.domain.GoldPrice;
 import com.vn.jewelry_management_system.service.GoldPriceService;
 import java.util.Optional;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/gold-prices")
@@ -55,5 +57,20 @@ public class GoldPriceController {
     public String deleteGoldPrice(@PathVariable("id") int id) {
         goldPriceService.deleteGoldPrice(id);
         return "redirect:/admin/gold-prices";
+    }
+
+    // GoldPriceController.java
+    @GetMapping("/display")
+    public String displayGoldPrices(Model model) {
+        List<GoldPrice> goldPrices = goldPriceService.getAllGoldPrices();
+        model.addAttribute("goldPrices", goldPrices);
+
+        // Lấy giá mua và giá bán mới nhất
+        BigDecimal latestBuyingPrice = goldPriceService.getLatestBuyingPrice();
+        BigDecimal latestSellingPrice = goldPriceService.getLatestSellingPrice();
+        model.addAttribute("latestBuyingPrice", latestBuyingPrice);
+        model.addAttribute("latestSellingPrice", latestSellingPrice);
+
+        return "admin/gold-price/gold-price-display";
     }
 }
