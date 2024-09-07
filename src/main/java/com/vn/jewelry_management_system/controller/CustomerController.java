@@ -20,13 +20,13 @@ public class CustomerController {
     @GetMapping
     public String showAllCustomers(Model model) {
         model.addAttribute("customers", customerService.getAllCustomers());
-        return "admin/customer/table-customer"; // Chỉnh sửa đường dẫn view
+        return "admin/customer/table-customer";
     }
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("customer", new Customer());
-        return "admin/customer/create"; // Chỉnh sửa đường dẫn view
+        return "admin/customer/create";
     }
 
     @PostMapping("/create")
@@ -38,12 +38,8 @@ public class CustomerController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
         Optional<Customer> customer = customerService.getCustomerById(id);
-        if (customer.isPresent()) {
-            model.addAttribute("customer", customer.get());
-            return "admin/customer/edit"; // Chỉnh sửa đường dẫn view
-        } else {
-            return "redirect:/admin/customers";
-        }
+        model.addAttribute("customer", customer.orElse(null));
+        return "admin/customer/edit";
     }
 
     @PostMapping("/edit/{id}")
@@ -58,4 +54,5 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return "redirect:/admin/customers";
     }
+
 }

@@ -9,9 +9,13 @@
                 <title>Create Product</title>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+                <link rel="stylesheet" href="/css/style-dashboard.css">
+                <link rel="stylesheet" href="/css/mini.css">
             </head>
 
             <body>
+                <jsp:include page="../menu.jsp" />
+
                 <div class="container mt-5">
                     <h1>Create Product</h1>
                     <form:form method="POST" action="/admin/products/create" modelAttribute="product">
@@ -23,10 +27,11 @@
                             <form:label path="productType" class="form-label">Product Type:</form:label>
                             <form:select path="productType" class="form-control">
                                 <form:option value="">-- Select Product Type --</form:option>
-                                <c:forEach items="${productTypes}" var="productType">
-                                    <form:option value="${productType.productTypeId}">${productType.productTypeName}
-                                    </form:option>
-                                </c:forEach>
+                                <form:option value="Nhẫn">Nhẫn</form:option>
+                                <form:option value="Dây Chuyền">Dây Chuyền</form:option>
+                                <form:option value="Bông tai">Bông tai</form:option>
+                                <form:option value="Vòng tay">Vòng tay</form:option>
+                                <form:option value="Mặt dây chuyền">Mặt dây chuyền</form:option>
                             </form:select>
                         </div>
                         <div class="mb-3">
@@ -52,14 +57,6 @@
                         <div class="mb-3">
                             <form:label path="markupRatio" class="form-label">Markup Ratio:</form:label>
                             <form:input path="markupRatio" class="form-control" type="number" step="0.01" />
-                        </div>
-                        <div class="mb-3">
-                            <form:label path="image" class="form-label">Image:</form:label>
-                            <form:input path="image" class="form-control" />
-                        </div>
-                        <div class="mb-3 form-check">
-                            <form:checkbox path="status" class="form-check-input" />
-                            <form:label path="status" class="form-check-label">Status</form:label>
                         </div>
                         <button type="submit" class="btn btn-primary">Create</button>
                     </form:form>

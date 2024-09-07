@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             <!DOCTYPE html>
             <html>
 
@@ -9,9 +9,13 @@
                 <title>Edit Promotion</title>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+                <link rel="stylesheet" href="/css/style-dashboard.css">
+                <link rel="stylesheet" href="/css/mini.css">
             </head>
 
             <body>
+                <jsp:include page="../menu.jsp" />
+
                 <div class="container mt-5">
                     <h1>Edit Promotion</h1>
                     <form:form method="POST" action="/admin/promotions/edit/${promotion.promotionId}"
@@ -22,7 +26,10 @@
                         </div>
                         <div class="mb-3">
                             <form:label path="promotionType" class="form-label">Promotion Type:</form:label>
-                            <form:input path="promotionType" class="form-control" />
+                            <form:select path="promotionType" class="form-select">
+                                <form:option value="PERCENTAGE">Giảm theo phần trăm</form:option>
+                                <form:option value="AMOUNT">Giảm theo số tiền</form:option>
+                            </form:select>
                         </div>
                         <div class="mb-3">
                             <form:label path="cdt" class="form-label">Condition:</form:label>
