@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hóa Đơn Mua Hàng</title>
+
+    <link href="~/Content/StyleSheet2.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Mua lại hàng</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Mua lại hàng</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <div class="container">
+        <h1>HÓA ĐƠN MUA LẠI HÀNG</h1>
+
+        <div class="actions">
+            <button>Export PDF</button>
+            <button>+ Tạo đơn hàng</button>
+            <input type="text" placeholder="Tìm kiếm">
+        </div>
+
+        <div class="customer-info">
+            <div class="info-row">
+                <label for="name">Họ tên:</label>
+                <input type="text" id="name">
+                <label for="gender">Giới tính:</label>
+                <input type="text" id="gender">
+            </div>
+            <div class="info-row">
+                <label for="birth-year">Năm sinh:</label>
+                <input type="text" id="birth-year">
+                <label for="phone">Điện thoại:</label>
+                <input type="text" id="phone">
+            </div>
+            <div class="info-row">
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" style="width: 100%;">
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Sản Phẩm</th>
+                    <th>% giảm</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="product-info">
+                            <img src="path/to/product-image.jpg" alt="Product Image">
+                            <p>Dây chuyền Vàng trắng Ý 18K PNJ 001</p>
+                            <div class="product-actions">
+                                <button class="edit-btn">✎</button>
+                                <button class="delete-btn">🗑️</button>
+                            </div>
+                        </div>
+                    </td>
+                    <td><input type="text"></td>
+                    <td>
+                        <button class="quantity-btn">-</button>
+                        <span class="quantity">1</span>
+                        <button class="quantity-btn">+</button>
+                    </td>
+                    <td><input type="text"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="add-product">+ Thêm sản phẩm</button>
+
+        <div class="summary">
+            <p>Tổng số tiền phải trả: <span id="total-amount">100.000</span></p>
+            <p>(Một trăm nghìn đồng)</p>
+            <p>Phương thức thanh toán: Chuyển khoản</p>
+            <p>Thanh toán: <span id="paid-amount">100.000</span></p>
+        </div>
+
+        <div class="signature">
+            <div class="customer-signature">
+                <p>Chữ ký KH</p>
+                <div class="signature-line"></div>
+            </div>
+            <div class="staff-signature">
+                <p>Người lập</p>
+                <p>Nguyễn Văn A</p>
+            </div>
+        </div>
+
+        <div class="print">
+            <button>🖨️ In hóa đơn</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

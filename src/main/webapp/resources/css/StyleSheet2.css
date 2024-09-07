@@ -1,0 +1,98 @@
+﻿/* CSS cơ bản cho giao diện */
+.container {
+    width: 800px; /* Điều chỉnh chiều rộng theo ý muốn */
+    margin: 20px auto;
+    font-family: sans-serif;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.customer-info, .payment {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+label {
+    width: 100px;
+    margin-right: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+}
+
+    .product-info img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+.quantity-btn {
+    /* CSS cho nút tăng giảm số lượng */
+}
+
+.edit-btn, .delete-btn {
+    /* CSS cho nút sửa và xóa */
+}
+
+.total, .payment-method, .payment-info {
+    text-align: right;
+}
+
+.signature {
+    text-align: right;
+}
+
+.signature-line {
+    border-bottom: 1px solid #000;
+    margin: 10px 0;
+}
+
+.print {
+    text-align: center;
+}
+
+/* ... (các CSS khác của bạn) ... */
+
+.product-actions {
+    margin-top: 10px; /* Hoặc giá trị phù hợp để tạo khoảng cách với tên sản phẩm */
+}
+
+.summary {
+    text-align: left; /* Căn lề trái cho phần tổng kết */
+    margin-top: 20px;
+}
+
+.signature {
+    display: flex;
+    justify-content: space-between; /* Chia chữ ký khách hàng và người lập thành 2 cột */
+    margin-top: 20px;
+}
+
+.customer-signature, .staff-signature {
+    text-align: center;
+}

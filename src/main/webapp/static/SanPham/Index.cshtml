@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>SanPham</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">SanPham</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <h2>Danh sách Sản phẩm</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tên sản phẩm</th>
+            <th>Hình</th>
+            <th>Giá bán</th>
+            <th>Giá vốn</th>
+            <th>Chất liệu</th>
+            <th>Trọng lượng</th>
+            <th>Loại</th>
+            <th>Ẩn/hiện</th>
+            <th>Sửa</th>
+            <th>Xóa</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Dây chuyền Vàng trắng Ý 18K PNJ 001</td>
+            <td><img src="path/to/image1.jpg" alt="Dây chuyền 1" width="50"></td>
+            <td>18.354.300 ₫</td>
+            <td></td>
+            <td>Vàng trắng 18K</td>
+            <td>3.17</td>
+            <td>Dây chuyền</td>
+            <td><input type="checkbox" checked></td>
+            <td><button>Sửa</button></td>
+            <td><button>Xóa</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Dây chuyền Vàng 24K PNJ 002</td>
+            <td><img src="path/to/image2.jpg" alt="Dây chuyền 2" width="50"></td>
+            <td>13.090.000 ₫</td>
+            <td></td>
+            <td>Vàng 24K</td>
+            <td>1.7</td>
+            <td>Dây chuyền</td>
+            <td><input type="checkbox" checked></td>
+            <td><button>Sửa</button></td>
+            <td><button>Xóa</button></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Dây chuyền Vàng trắng Ý 18K PNJ 003</td>
+            <td></td>
+            <td>9.785.100 ₫</td>
+            <td></td>
+            <td>Vàng 18K</td>
+            <td>1.69</td>
+            <td>Dây chuyền</td>
+            <td><input type="checkbox" checked></td>
+            <td><button>Sửa</button></td>
+            <td><button>Xóa</button></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Nhẫn Vàng 18K đính đá ECZ 001</td>
+            <td></td>
+            <td>8.106.000 ₫</td>
+            <td></td>
+            <td>Vàng 18K</td>
+            <td>1.4</td>
+            <td>Nhẫn</td>
+            <td><input type="checkbox" checked></td>
+            <td><button>Sửa</button></td>
+            <td><button>Xóa</button></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Nhẫn Vàng 18K đính đá Sapphire PNJ 002</td>
+            <td></td>
+            <td>8.685.000 ₫</td>
+            <td></td>
+            <td>Vàng 18K</td>
+            <td>1.5</td>
+            <td>Nhẫn</td>
+            <td><input type="checkbox" checked></td>
+            <td><button>Sửa</button></td>
+            <td><button>Xóa</button></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Lắc tay Vàng trắng Ý 18K đính đá CZ PNJ 001</td>
+            <td></td>
+            <td>16.212.000 ₫</td>
+            <td></td>
+            <td>Vàng trắng 18K</td>
+            <td>2.8</td>
+            <td>Lắc tay</td>
+            <td><input type="checkbox" checked></td>
+            <td><button>Sửa</button></td>
+            <td><button>Xóa</button></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Bông tai Vàng trắng Ý 18K đính đá CZ</td>
+            <td></td>
+            <td>3.474.000 ₫</td>
+            <td></td>
+            <td>Vàng 18K</td>
+            <td>0.6</td>
+            <td>Bông tai</td>
+            <td><input type="checkbox" checked></td>
+            <td><button>Sửa</button></td>
+            <td><button>Xóa</button></td>
+        </tr>
+    </table>
+
+</body>
+</html>
+
