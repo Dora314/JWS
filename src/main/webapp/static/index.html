@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ</title>
+    <style>
+        body {
+        margin: 0;
+        font-family: Hevetica, sans-serif, sans-serif;
+        display: flex;
+        height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1px;
+            background-color: #fff;
+            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .header-nav a {
+            margin-left : 0;
+            padding-left: 0px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .icons img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .icon img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .user-avatar img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #04101d;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            margin-top: 60px;
+        }
+
+        .sidebar h2 {
+            color: #ffffff;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 35px 0;
+            color: #ecf0f1;
+            cursor: pointer;
+        }
+
+        .sidebar ul li:hover {
+            color: #f9f509;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            margin-left: 250px;
+            padding: 80px 20px 20px 20px;
+            background-color: #ecf0f1;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="images/logo-PNJ.png" alt="PNJ Logo">
+            </div>
+            <nav class="header-nav">
+                <a href="#">Dashboard</a>
+            </nav>
+            <div class="header-icons">
+                <span class="icon">
+                    <img src="images/bell.png" alt="Bell">
+                </span>
+                <span class="icon">
+                    <img src="images/chat.png" alt="Chat">
+                </span>
+                <span class="user-avatar">
+                    <img src="images/user.png" alt="User Avatar">
+                </span>
+            </div>
+        </header>
+
+        
+        <aside class="sidebar">
+            <h2>Quản lý</h2>
+            <ul>
+                <li>Bán hàng</li>
+                <li>Khuyến mãi và ưu đãi</li>
+                <li>Mua lại hàng</li>
+                <li>Bảng giá vàng</li>
+                <li>Khách hàng</li>
+                <li>Quầy hàng</li>
+                <li>Sản phẩm</li>
+                <li>Chính sách và quy định</li>
+                <li>Nhân viên</li>
+                <li>Báo cáo thống kê</li>
+            </ul>
+        </aside>
+
+        
+        <main class="main-content">
+            <!-- Nội dung chính sẽ được thêm ở đây -->
+        </main>
+    </div>
+</body>
+</html>

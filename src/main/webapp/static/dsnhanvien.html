@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <style>
+    body {
+    margin: 0;
+    font-family: Hevetica, sans-serif, sans-serif;
+    display: flex;
+    height: 100vh;
+    }
+
+    .container {
+        display: flex;
+        width: 100%;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 1px;
+        background-color: #fff;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .logo img {
+        width: 200px;
+        cursor: pointer;
+    }
+
+    .header-nav a {
+        margin-left : 0;
+        padding-left: 0px;
+        color: #000000;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .header-icons {
+        display: flex;
+        align-items: center;
+    }
+
+    .icons img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .icon img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .user-avatar img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .sidebar {
+        width: 200px;
+        background-color: #04101d;
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        overflow-y: auto;
+        margin-top: 60px;
+    }
+
+    .sidebar h2 {
+        color: #ffffff;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        list-style-type: none;
+        padding: 0;
+        margin: 35px 0;
+        color: #ecf0f1;
+        cursor: pointer;
+    }
+
+    .sidebar a:hover {
+        color: #f9f509;
+    }
+
+    .sidebar a.active {
+        background-color: #ff0000;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .content {
+        flex-grow: 1;
+        margin-left: 250px;
+        padding: 80px 20px 20px 20px;
+        background-color: #ecf0f1;
+        height: 100%;
+    }
+    .management {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
+    }
+
+    .add {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    thead {
+        background-color: #8B0000;
+        color: #fff;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .btn-action {
+        display : flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-action .btn {
+        margin-right: 5px;
+    }
+
+    .edit-button, .delete-button {
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .delete-button {
+        color: #ff0000;
+    }
+
+    .edit-button {
+        color: #007bff;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="images/logo-PNJ.png" alt="PNJ Logo">
+            </div>
+            <nav class="header-nav">
+                <a href="index.html">Dashboard</a>
+            </nav>
+            <div class="header-icons">
+                <span class="icon">
+                    <img src="images/bell.png" alt="Bell">
+                </span>
+                <span class="icon">
+                    <img src="images/chat.png" alt="Chat">
+                </span>
+                <span class="user-avatar">
+                    <img src="images/user.png" alt="User Avatar">
+                </span>
+            </div>
+        </header>
+
+        <aside class="sidebar">
+            <h2>Quản lý</h2>
+            <a href="#">Bán hàng</a>
+            <a href="#">Khuyến mãi và ưu đãi</a>
+            <a href="#">Mua lại hàng</a>
+            <a href="goldprice.html">Bảng giá vàng</a>
+            <a href="#">Khách hàng</a>
+            <a href="#">Quầy hàng</a>
+            <a href="product.html">Sản phẩm</a>
+            <a href="#">Chính sách và quy định</a>
+            <a href="dsnhanvien.html" class ="active">Nhân viên</a>
+            <a href="#">Báo cáo thống kê</a>
+        </aside>
+
+        <main class="content">
+            <div class="management">
+                <div class="add">
+                    <h3 href ="index.html">Home / Nhân viên</h3>
+                    <a href="/admin/employees/create_employee" class="btn btn-primary">+ Thêm</a>
+                    <input type="text" class="form-control" placeholder="Tìm kiếm">
+                </div>
+                <table class="ds">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Họ và Tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Chức vụ</th>
+                            <th>Lương</th>
+                            <th>Quầy hàng</th>
+                            <th>Sửa</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dữ liệu nhân viên -->
+                        <tr th:each="employee : ${employees}">
+                            <td th:text="${employee.employeeId}"></td>
+                            <td th:text="${employee.employeeName}"></td>
+                            <td th:text="${employee.phone}"></td>
+                            <td th:text="${employee.address}"></td>
+                            <td th:text="${employee.position}"></td>
+                            <td th:text="${employee.salary}"></td>
+                            <td th:text="${employee.stall.stallName}"></td>
+                            <td class="btn-action">
+                                <a th:href="@{'/admin/employees/edit/' + ${employee.employeeId}}" class="btn btn-warning">✏️</a>
+                            </td>
+                            <td class="btn-action">
+                                <a th:href="@{'/admin/employees/delete/' + ${employee.employeeId}}" class="btn btn-danger">🗑️</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        </main>
+    </div>
+</body>
+</html>

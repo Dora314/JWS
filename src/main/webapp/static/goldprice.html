@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng giá vàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Hevetica, sans-serif, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1px;
+            background-color: #fff;
+            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .header-nav a {
+            margin-left : 0;
+            padding-left: 0px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .icons img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .icon img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .user-avatar img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #04101d;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            margin-top: 60px;
+        }
+
+        .sidebar h2 {
+            color: #ffffff;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 35px 0;
+            color: #ecf0f1;
+            cursor: pointer;
+        }
+
+        .sidebar ul li:hover {
+            color: #f9f509;
+        }
+
+        .sidebar ul .active {
+            background-color: #ff0000;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    
+        .gold-price-table {
+            margin-left: 260px;
+            padding: 20px;
+        }
+
+        h3 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top : 20px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            padding : 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li>Bán hàng</li>
+                <li>Khuyến mãi và ưu đãi</li>
+                <li>Mua lại hàng</li>
+                <li class="active">Bảng giá vàng</li>
+                <li>Khách hàng</li>
+                <li>Quầy hàng</li>
+                <li>Sản phẩm</li>
+                <li>Chính sách và quy định</li>
+                <li>Nhân viên</li>
+                <li>Báo cáo thống kê</li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <img src="images/logo-PNJ.png" alt="PNJ Logo">
+        </div>
+        <nav class="header-nav">
+            <a href="#">Dashboard</a>
+        </nav>
+        <div class="header-icons">
+            <span class="icon">
+                <img src="images/bell.png" alt="Bell">
+            </span>
+            <span class="icon">
+                <img src="images/chat.png" alt="Chat">
+            </span>
+            <span class="user-avatar">
+                <img src="images/user.png" alt="User Avatar">
+            </span>
+        </div>
+    </div>
+    </header>
+
+    <div class="gold-price-table">
+        <h3>Bảng giá vàng</h3>
+        <p>Xem giá vàng tại:</p>
+        <select>
+            <option>Hồ Chí Minh</option>
+            <option>Hà Nội</option>
+            <option>Đà Nẵng</option>
+        </select>
+        <p>Cập nhật ngày: <span th:text="${#dates.format(goldPrices[0]?.updateDate, 'dd/MM/yyyy HH:mm')}"></span></p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Loại vàng</th>
+                    <th>Giá mua | 1.000đ/Chỉ</th>
+                    <th>Giá bán | 1.000đ/Chỉ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="price : ${goldPrices}">
+                    <td th:text="${price.type}"></td>
+                    <td th:text="${price.buyPrice}"></td>
+                    <td th:text="${price.sellPrice}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .login-container p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .login-container a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-container a:hover {
+            text-decoration:underline;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .show-password {
+            position :absolute;
+            right: -5px;
+            top: 20px;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .forgot-password {
+            margin: 15px 0;
+            color: #555;
+        }
+
+        .login-options {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-options a {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .login-options a img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .login-options a.google {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .login-options a.facebook {
+            background-color: #3b5998;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Tạo tài khoản mới</h2>
+        <p>Đã có tài khoản? <a href="#">Đăng nhập</a></p>
+        <form id="SignUpForm" onsubmit="processSignUp(event)">
+            <input type="email" id="email" placeholder="Email" required>
+            <div style="position: relative;">
+                <input type="password" id="password" placeholder="Mật khẩu" required>
+                <span class="show-password" onclick="togglePasswordVisibility()">👁️</span>
+            </div>
+            <button type="submit">Đăng ký</button>
+        </form>
+        <div class="login-options">
+            <a href="#" class="google"><img src="https://i.pinimg.com/736x/74/65/f3/7465f30319191e2729668875e7a557f2.jpg" alt="Google">Tài khoản Google</a>
+            <a href="#" class="facebook"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/800px-Facebook_Logo_%282019%29.png.png" alt="Facebook">Tài khoản Facebook</a>
+        </div>
+    </div>
+
+    <script>
+        // Xử lý hiển thị mật khẩu
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+
+        // Xử lý đăng ký
+        function processSignUp(event) {
+            event.preventDefault(); // 
+
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Kiểm tra dữ liệu (ở đây chỉ là demo, nên xử lý server-side)
+            if (email === "admin@example.com" && password === "123456") {
+                alert("Đăng nhập thành công!");
+                // Chuyển hướng đến trang chính
+                window.location.href = "index.html";
+            } else {
+                alert("Email hoặc mật khẩu không đúng!");
+            }
+        }
+
+        // Chuyển hướng sang trang đăng nhập
+        function redirectToLogin(event) {
+            event.preventDefault(); // Ngăn việc tải lại trang
+            window.location.href = "login.html"; // Chuyển hướng sang trang đăng nhập
+        }
+    </script>
+</body>
+</html>
+
+
+
+
