@@ -1,13 +1,8 @@
 package com.vn.jewelry_management_system.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -17,29 +12,25 @@ public class Promotion {
     private int promotionId;
 
     private String promotionName;
-    private String promotionType;
-    private String cdt;
-    private BigDecimal value;
 
+    @Enumerated(EnumType.STRING) // Sử dụng Enum để lưu trữ loại khuyến mãi
+    private PromotionType promotionType; // Loại khuyến mãi (PERCENTAGE, AMOUNT)
+
+    private String cdt; // Điều kiện áp dụng
+
+    private BigDecimal value; // Giá trị giảm giá (theo % hoặc theo amount)
+
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
 
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
-    // Constructors, Getters and Setters
-
-    public Promotion() {
-    }
-
-    public Promotion(String promotionName, String promotionType, String cdt, BigDecimal value, Date startDate,
-            Date endDate) {
-        this.promotionName = promotionName;
-        this.promotionType = promotionType;
-        this.cdt = cdt;
-        this.value = value;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    // Enum cho loại khuyến mãi
+    public enum PromotionType {
+        PERCENTAGE, AMOUNT
     }
 
     public int getPromotionId() {
@@ -58,11 +49,11 @@ public class Promotion {
         this.promotionName = promotionName;
     }
 
-    public String getPromotionType() {
+    public PromotionType getPromotionType() {
         return promotionType;
     }
 
-    public void setPromotionType(String promotionType) {
+    public void setPromotionType(PromotionType promotionType) {
         this.promotionType = promotionType;
     }
 
@@ -98,10 +89,4 @@ public class Promotion {
         this.endDate = endDate;
     }
 
-    @Override
-    public String toString() {
-        return "Promotion [promotionId=" + promotionId + ", promotionName=" + promotionName + ", promotionType="
-                + promotionType + ", cdt=" + cdt + ", value=" + value + ", startDate=" + startDate + ", endDate="
-                + endDate + "]";
-    }
 }
