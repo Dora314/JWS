@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Danh sách đơn hàng</title>
+  
+    <link href="~/Content/StyleSheet3.css" rel="stylesheet" />
+</head>
+<body>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Danh sách hóa đơn</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Danh sách hóa đơn</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <div class="container">
+        <input type="text" placeholder="Tìm kiếm">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Ngày tạo</th>
+                    <th>Khách hàng</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>16/8/2024</td>
+                    <td>Đỗ Nam Trung</td>
+                    <td>100.000</td>
+                    <td>Hoàn thành</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
