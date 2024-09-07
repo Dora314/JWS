@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.itextpdf.text.DocumentException;
+import com.vn.jewelry_management_system.domain.Customer;
 import com.vn.jewelry_management_system.domain.Product;
+import com.vn.jewelry_management_system.domain.Promotion;
 import com.vn.jewelry_management_system.domain.SalesInvoice;
 import com.vn.jewelry_management_system.domain.SalesInvoiceDetail;
 import com.vn.jewelry_management_system.domain.SalesInvoiceDetailId;
@@ -17,6 +19,7 @@ import com.vn.jewelry_management_system.service.CustomerService;
 import com.vn.jewelry_management_system.service.EmployeeService;
 import com.vn.jewelry_management_system.service.InvoicePdfService;
 import com.vn.jewelry_management_system.service.ProductService;
+import com.vn.jewelry_management_system.service.PromotionService;
 import com.vn.jewelry_management_system.service.SalesInvoiceDetailService;
 import com.vn.jewelry_management_system.service.SalesInvoiceService;
 import com.vn.jewelry_management_system.service.StallService;
@@ -35,10 +38,12 @@ public class SalesInvoiceController {
     private final ProductService productService; // Inject ProductService
     private final SalesInvoiceDetailService salesInvoiceDetailService; // Inject SalesInvoiceDetailService
     private final InvoicePdfService invoicePdfService; // Inject InvoicePdfService
+    private final PromotionService promotionService; // Inject PromotionService
 
     public SalesInvoiceController(SalesInvoiceService salesInvoiceService, CustomerService customerService,
             EmployeeService employeeService, StallService stallService, ProductService productService,
-            SalesInvoiceDetailService salesInvoiceDetailService, InvoicePdfService invoicePdfService) {
+            SalesInvoiceDetailService salesInvoiceDetailService, InvoicePdfService invoicePdfService,
+            PromotionService promotionService) {
         this.salesInvoiceService = salesInvoiceService;
         this.customerService = customerService;
         this.employeeService = employeeService;
@@ -46,7 +51,26 @@ public class SalesInvoiceController {
         this.productService = productService;
         this.salesInvoiceDetailService = salesInvoiceDetailService;
         this.invoicePdfService = invoicePdfService;
+        this.promotionService = promotionService;
 
+    }
+
+    // Phương thức tính tổng chiết khấu
+    private BigDecimal calculateTotalDiscount(SalesInvoice salesInvoice) {
+        BigDecimal totalDiscount = BigDecimal.ZERO;
+        BigDecimal totalAmount = salesInvoice.getTotalAmount();
+
+        for (Promotion promotion : salesInvoice.getPromotions()) {
+            if (promotion.getPromotionType() == Promotion.PromotionType.PERCENTAGE) {
+                // Giảm giá theo phần trăm
+                totalDiscount = totalDiscount
+                        .add(totalAmount.multiply(promotion.getValue().divide(BigDecimal.valueOf(100))));
+            } else {
+                // Giảm giá theo số tiền
+                totalDiscount = totalDiscount.add(promotion.getValue());
+            }
+        }
+        return totalDiscount;
     }
 
     @GetMapping
@@ -61,18 +85,19 @@ public class SalesInvoiceController {
         model.addAttribute("customers", customerService.getAllCustomers());
         model.addAttribute("employees", employeeService.getAllEmployees());
         model.addAttribute("stalls", stallService.getAllStalls());
-        model.addAttribute("products", productService.getAllProducts()); // Add products for selection
-        model.addAttribute("salesInvoiceDetails", new ArrayList<SalesInvoiceDetail>()); // Add empty list of
-                                                                                        // SalesInvoiceDetail
+        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("salesInvoiceDetails", new ArrayList<SalesInvoiceDetail>());
+        model.addAttribute("promotions", promotionService.getAllPromotions());
         return "admin/sales-invoice/create";
     }
 
-    // SalesInvoiceController.java
     @PostMapping("/create")
     public String createSalesInvoice(@ModelAttribute("salesInvoice") SalesInvoice salesInvoice,
             @RequestParam("productIds") List<Integer> productIds,
             @RequestParam("quantities") List<Integer> quantities,
+            @RequestParam("promotionIds") List<Integer> promotionIds, // Nhận danh sách promotionIds
             Model model) {
+        // Xử lý chi tiết đơn hàng
         List<SalesInvoiceDetail> details = new ArrayList<>();
         BigDecimal totalAmount = BigDecimal.ZERO;
 
@@ -106,17 +131,28 @@ public class SalesInvoiceController {
 
                 details.add(detail);
 
-                // Cộng dồn totalAmount
-                totalAmount = totalAmount.add(sellingPrice.multiply(BigDecimal.valueOf(quantity)));
+                // // Cộng dồn totalAmount
+                // totalAmount =
+                // totalAmount.add(sellingPrice.multiply(BigDecimal.valueOf(quantity)));
             } else {
                 // Xử lý trường hợp không tìm thấy sản phẩm (ví dụ: hiển thị thông báo lỗi)
                 model.addAttribute("errorMessage", "Product not found!");
                 return "admin/sales-invoice/create";
             }
         }
+        // Xử lý promotionIds
+        List<Promotion> promotions = new ArrayList<>();
+        for (Integer promotionId : promotionIds) {
+            Optional<Promotion> promotionOptional = promotionService.getPromotionById(promotionId);
+            promotionOptional.ifPresent(promotions::add);
+        }
+        salesInvoice.setPromotions(promotions);
+
+        // // Tính toán tổng chiết khấu
+        // BigDecimal totalDiscount = calculateTotalDiscount(salesInvoice);
+        // salesInvoice.setDiscount(totalDiscount);
 
         // Lưu SalesInvoice trước để có salesInvoiceId
-        salesInvoice.setTotalAmount(totalAmount);
         salesInvoice = salesInvoiceService.saveSalesInvoice(salesInvoice);
 
         // Lưu SalesInvoiceDetails
@@ -125,18 +161,25 @@ public class SalesInvoiceController {
             salesInvoiceDetailService.saveSalesInvoiceDetail(detail);
         }
 
-        return "redirect:/admin/sales-invoices";
-    }
+        // Tính toán lại totalAmount sau khi đã lưu SalesInvoiceDetails
+        totalAmount = salesInvoiceDetailService.getTotalAmountByInvoiceId(salesInvoice.getSalesInvoiceId());
+        salesInvoice.setTotalAmount(totalAmount);
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id") int id, Model model) {
-        Optional<SalesInvoice> salesInvoice = salesInvoiceService.getSalesInvoiceById(id);
-        model.addAttribute("salesInvoice", salesInvoice.orElse(null));
-        model.addAttribute("customers", customerService.getAllCustomers());
-        model.addAttribute("employees", employeeService.getAllEmployees());
-        model.addAttribute("stalls", stallService.getAllStalls());
-        model.addAttribute("products", productService.getAllProducts()); // Add products for selection
-        return "admin/sales-invoice/edit";
+        // Tính toán tổng chiết khấu
+        BigDecimal totalDiscount = calculateTotalDiscount(salesInvoice);
+        salesInvoice.setDiscount(totalDiscount);
+
+        // Lưu lại SalesInvoice (đã có totalAmount và discount)
+        salesInvoiceService.saveSalesInvoice(salesInvoice);
+
+        // Cập nhật LoyaltyPoint cho khách hàng
+        Customer customer = salesInvoice.getCustomer();
+        int newLoyaltyPoints = (int) (salesInvoice.getTotalAmount().subtract(salesInvoice.getDiscount()).intValue()
+                / 10000);
+        customer.setLoyaltyPoint(customer.getLoyaltyPoint() + newLoyaltyPoints);
+        customerService.saveCustomer(customer);
+
+        return "redirect:/admin/sales-invoices";
     }
 
     @GetMapping("/download/{id}")
@@ -145,11 +188,28 @@ public class SalesInvoiceController {
         if (invoiceOptional.isPresent()) {
             SalesInvoice invoice = invoiceOptional.get();
             byte[] pdfBytes = invoicePdfService.generateInvoicePdf(invoice);
-    
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.add("Content-Disposition", "attachment; filename=invoice_" + invoice.getSalesInvoiceId() + ".pdf");
-    
+            headers.setContentDispositionFormData("attachment", "invoice_" + invoice.getSalesInvoiceId() + ".pdf");
+
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/download-warranty/{id}")
+    public ResponseEntity<byte[]> downloadWarrantyPdf(@PathVariable("id") int id) throws DocumentException {
+        Optional<SalesInvoice> invoiceOptional = salesInvoiceService.getSalesInvoiceById(id);
+        if (invoiceOptional.isPresent()) {
+            SalesInvoice invoice = invoiceOptional.get();
+            byte[] pdfBytes = invoicePdfService.generateWarrantyPdf(invoice);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("attachment", "warranty_" + invoice.getSalesInvoiceId() + ".pdf");
+
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
