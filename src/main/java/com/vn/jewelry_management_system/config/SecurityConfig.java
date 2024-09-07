@@ -27,17 +27,17 @@ public class SecurityConfig {
             )
             .oauth2Login(oauth2Login ->
                 oauth2Login
-                    .loginPage("/login")
+                    .loginPage("admin/login")
                     .defaultSuccessUrl("/home", true)
             )
             .formLogin(formLogin ->
                 formLogin
-                    .loginPage("/login")
+                    .loginPage("admin/login")
                     .defaultSuccessUrl("/home", true)
             )
             .logout(logout ->
                 logout
-                    .logoutSuccessUrl("/login")
+                    .logoutSuccessUrl("admin/login")
             );
         return http.build();
     }
