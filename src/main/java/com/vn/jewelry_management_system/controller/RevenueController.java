@@ -19,14 +19,9 @@ import java.util.Map;
 public class RevenueController {
 
     private final SalesInvoiceService salesInvoiceService;
-    private final StallService stallService;
-    private final EmployeeService employeeService;
-
     public RevenueController(SalesInvoiceService salesInvoiceService, StallService stallService,
             EmployeeService employeeService) {
         this.salesInvoiceService = salesInvoiceService;
-        this.stallService = stallService;
-        this.employeeService = employeeService;
     }
 
     @GetMapping("/stalls")
