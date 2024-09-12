@@ -11,27 +11,25 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
-                    .requestMatchers("/staff/**").hasRole("STAFF")
-                    .requestMatchers("/employee/**").hasRole("EMPLOYEE")
+                    .requestMatchers("/login", "/register", "/oauth2/**").permitAll()
                     .anyRequest().authenticated()
             )
             .oauth2Login(oauth2Login ->
                 oauth2Login
-                    .loginPage("/admin/login")
-                    .defaultSuccessUrl("/admin/home", true)
-                    .failureUrl("/admin/login?error")
+                    .loginPage("/oauth2/authorization/google")
+                    .defaultSuccessUrl("/admin/dashboard", true)
+                    .failureUrl("/login?error=true")
             )
-            .logout(logout ->
+            .logout(logout -> 
                 logout
-                    .logoutSuccessUrl("/admin/login")
-            );
+                    .logoutSuccessUrl("/oauth2/authorization/google")
+            )
+            .csrf(csrf -> csrf.disable()); // Disable CSRF for simplicity, enable it in production
         return http.build();
     }
 

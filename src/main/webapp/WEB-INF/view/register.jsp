@@ -142,7 +142,7 @@
         </div>
         <div class="social-login">
             <p>Hoặc đăng nhập bằng:</p>
-            <a href="/login/oauth2/code/google" class="google-login"><img src="./google-logo.svg" alt="Google"> Google</a>
+            <a href="/oauth2/authorization/google" class="google-login"><img src="./google-logo.svg" alt="Google"> Google</a>
         </div>
     </div>
     <script>

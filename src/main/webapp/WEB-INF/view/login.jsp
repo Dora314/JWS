@@ -126,11 +126,11 @@
             <button type="submit">Đăng nhập</button>
         </form>
         <div class="links">
-            <a href="/admin/register">Đăng ký</a>
+            <a href="/register">Đăng ký</a>
         </div>
         <div class="social-login">
             <p>Hoặc đăng nhập bằng:</p>
-            <a href="/login/oauth2/code/google" class="google-login"><img src="./google-logo.svg" alt="Google">Google</a>
+            <a href="/oauth2/authorization/google" class="google-login"><img src="./google-logo.svg" alt="Google">Google</a>
         </div>
     </div>
     <script>
