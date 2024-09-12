@@ -25,6 +25,18 @@ public class Employee {
     @JoinColumn(name = "stall_id")
     private Stall stall;
 
+    public Employee() {
+    }
+
+    public Employee(int employee_id, String employeeName, String phone, String address, String position, BigDecimal salary) {
+        this.employeeId = employee_id;
+        this.employeeName = employeeName;
+        this.phone = phone;
+        this.address = address;
+        this.position = position;
+        this.salary = salary;
+    }
+
     public int getEmployeeId() {
         return employeeId;
     }
