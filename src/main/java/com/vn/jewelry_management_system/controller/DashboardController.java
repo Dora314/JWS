@@ -18,13 +18,11 @@ import java.util.Map;
 public class DashboardController {
 
     private final SalesInvoiceService salesInvoiceService;
-    private final StallService stallService;
     private final BuybackInvoiceService buybackInvoiceService;
 
     public DashboardController(SalesInvoiceService salesInvoiceService, StallService stallService,
             BuybackInvoiceService buybackInvoiceService) {
         this.salesInvoiceService = salesInvoiceService;
-        this.stallService = stallService;
         this.buybackInvoiceService = buybackInvoiceService;
     }
 
